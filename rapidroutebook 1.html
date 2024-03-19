@@ -85,6 +85,12 @@ overflow: scroll;
             text-align: center;
             width:fit-content;
         }
+        img {
+            width: 85%; /* Set the desired width */
+            height: auto; /* Maintain aspect ratio */
+            display: block; /* Ensure proper spacing */
+            margin: 0 auto; /* Center the image */
+        }
     </style>
     <script>
         function displayImage() {
@@ -103,13 +109,13 @@ overflow: scroll;
                     image.src = "aram.jpeg";
                     break;
                 case "agonda":
-                    image.src = "agua.jpg";
+                    image.src = "agua.jpeg";
                     break;
                 case "candolim":
-                    image.src = "vaga.jpeg";
+                    image.src = "vaga.avif";
                     break;
                 default:
-                    image.src = "logo.jpg"; 
+                    image.src = "goa.jpeg"; 
             }
         }
     </script>
@@ -121,13 +127,10 @@ overflow: scroll;
     <div id="status-bar">
         <nav>
             <ul>
-
-                <li><a href="/rapidroutehome 3.html">Home</a></li>
-                <li><a href="/rapidroutebook 1.html">Book Ticket</a></li>
-                <!-- <li><a href="rapidroutesign.html">Signup</a></li> -->
-                <li><a href="/rapidrouteabout.html">About Us</a></li>
-                <li><a href="/rapidroutecontact.html">Contact</a></li>
-    
+                <li><a href="rapidroutehome.html">Home</a></li>
+                <li><a href="rapidroutebook.html">Book Tickets</a></li>
+                <li><a href="rapidrouteabout.html">About Us</a></li>
+                <li><a href="rapidroutecontact.html">Contact</a></li>
             </ul>
         </nav>
     </div>
@@ -157,13 +160,13 @@ overflow: scroll;
             </select>
         </div>
         <div>
-            <!-- <img id="destinationImage" src="" alt="Destination Image"> -->
+            <img id="destinationImage" src="" alt="Destination Image">
         </div>
         <div class="form-group">
             <label for="date">Date</label>
             <input type="date" id="date" name="date">
         </div>
-        <button onclick="window.location.href='rapidrouteselect 1.html'">Check Availability</button>
+        <button onclick="window.location.href='rapidrouteselect.html'">Check Availability</button>
     
     </div>
         <p>&copy; 2024 RapidRoute. All rights reserved.</p>
