@@ -1,195 +1,145 @@
 <!DOCTYPE html>
-
 <html lang="en">
- 
 <head>
-
     <title>About Us - RapidRoute-Coastal Connections</title>
-
     <style>
-
         body {
-
             font-family: Arial, sans-serif;
             background-color: beige;
-
+            margin: 0;
+            padding: 0; 
         }
- 
+    
         header {
-
-background-color:maroon;
-
-color: beige;
-
-padding: 10px 0;
-
-text-align: center;
-
-}
-
+            background-color: maroon;
+            color: beige;
+            padding: 10px 0;
+            text-align: center;
+            margin: 0; 
+        }
+    
         nav {
-
-background-color: #666;
-
-padding: 10px;
-
-}
-
-nav ul {
-
-list-style-type: none;
-
-margin: 0;
-
-padding: 0;
-
-text-align: center;
-
-}
-
-nav ul li {
-
-display: inline;
-
-margin-right: 20px;
-
-}
-
-nav ul li a {
-
-color: #fff;
-
-text-decoration: none;
-
-}
- 
+            background-color: #666;
+            padding: 10px;
+        }
+    
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+    
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+    
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+    
         section {
-
-            max-width: 800px;
-
+            max-width: 100%; 
             margin: 0 auto;
-
             padding: 20px;
-
-
-
+            display: flex; 
+            justify-content: space-between; 
         }
- 
+    
+        section > div {
+            flex-basis: 30%;
+            margin: 0; 
+        }
+    
+        section > div:first-child {
+            margin-right: 20px; /* Add margin to separate the images */
+        }
+    
+        section > div:last-child {
+            margin-left: 20px; /* Add margin to separate the images */
+        }
+    
+        .content {
+            flex-grow: 1; /* Allow content to grow to fill remaining space */
+        }
+    
         h1, h2, h3 {
-
             color: maroon;
-
         }
- 
+    
         p {
-
             line-height: 1.6;
-
         }
- 
+    
         ul {
-
             list-style-type: disc;
-
             padding-left: 20px;
-
         }
- 
+    
         address {
-
             font-style: normal;
-
         }
- 
+    
         img {
-
             max-width: 100%;
-
             height: auto;
-
             border-radius: 8px;
-
             margin-bottom: 10px;
-
         }
-
     </style>
-
 </head>
  
 <body>
-
     <header>
-
         <h1 style="color: beige;">RapidRoute-Coastal Connections</h1>
-
         <p>Your Gateway to Seamless Bus Travel in Goa</p>
-
     </header>
  
     <nav>
-
         <ul>
-
-            <li><a href="/rapidroutehome 3.html">Home</a></li>
-            <li><a href="/rapidroutebook 1.html">Book Ticket</a></li>
-            <!-- <li><a href="rapidroutesign.html">Signup</a></li> -->
-            <li><a href="/rapidrouteabout.html">About Us</a></li>
-            <li><a href="/rapidroutecontact.html">Contact</a></li>
-
+            <li><a href="rapidroutehome.html">Home</a></li>
+            <li><a href="rapidroutebook.html">Book Tickets</a></li>
+            <li><a href="rapidrouteabout.html">About Us</a></li>
+            <li><a href="rapidroutecontact.html">Contact</a></li>
         </ul>
-
     </nav>
+    
     <section>
-
-
-        <h2>About Us</h2>
-
-        <p>Welcome to RapidRoute-Coastal Connections, the premier bus ticket booking platform catering to the scenic
-
-            routes of Goa. We are committed to providing convenient and reliable transportation services for locals
-
-            and tourists alike.</p>
+        <div>
+            <img src="lux2.jpeg" alt="First Image Left"><br><br><br><br><br><br><br><br><br><br>
+            <img src="lux1.jpeg" alt="Second Image Left">
+        </div>
+        
+        <div class="content">
+            <h2>About Us</h2>
+            <p>Welcome to RapidRoute-Coastal Connections, the premier bus ticket booking platform catering to the scenic routes of Goa. We are committed to providing convenient and reliable transportation services for locals and tourists alike.</p>
  
+            <h3>Our Mission</h3>
+            <p>At RapidRoute-Coastal Connections, our mission is to enhance your travel experience by offering a user-friendly platform to book bus tickets seamlessly. We strive to connect Goa's most popular destinations like Panjim, Calangute, Arambol, Marjim, and Agonda with comfort and efficiency.</p>
 
-        <h3>Our Mission</h3>
-
-        <p>At RapidRoute-Coastal Connections, our mission is to enhance your travel experience by offering a
-
-            user-friendly platform to book bus tickets seamlessly. We strive to connect Goa's most popular destinations
-
-            like Panjim, Calangute, Arambol, Marjim, and Agonda with comfort and efficiency.</p>
-
-        <h3>Why Choose Us?</h3>
-
-        <p>Choosing RapidRoute-Coastal Connections ensures:</p>
-
-        <ul>
-
-            <li>Efficient and punctual bus services</li>
-
-            <li>Easy online booking with secure payment options</li>
-
-            <li>Comfortable and well-maintained buses</li>
-
-            <li>Knowledgeable and friendly staff</li>
-
-        </ul>
+            <h3>Why Choose Us?</h3>
+            <p>Choosing RapidRoute-Coastal Connections ensures:</p>
+            <ul>
+                <li>Efficient and punctual bus services</li>
+                <li>Easy online booking with secure payment options</li>
+                <li>Comfortable and well-maintained buses</li>
+                <li>Knowledgeable and friendly staff</li>
+            </ul>
  
-        <h3>Contact Information</h3>
-
-        <p>If you have any questions or concerns, feel free to reach out to us:</p>
-
-        <address>
-
-            Email: info@rapidroute.com<br>
-
-            Phone: +91-99098-62496
-
-        </address>
-
+            <h3>Contact Information</h3>
+            <p>If you have any questions or concerns, feel free to reach out to us:</p>
+            <address>
+                Email: info@rapidroute.com<br>
+                Phone: +91-99098-62496
+            </address>
+        </div>
+        
+        <div>
+            <img src="lux3.jpeg" alt="First Image Right"><br><br><br><br><br><br><br><br><br><br>
+            <img src="lux4.webp" alt="Second Image Right">
+        </div>
     </section>
-
 </body>
- 
 </html>
