@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html ng-app="busTicketApp">
+<head>
+    <title>RapidRoute.com</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+        .login-container {
+            text-align: center;
+        }
+        input {
+            margin-bottom: 10px;
+        }
+        body {
+
+font-family: Arial, sans-serif;
+
+  background-color:beige;
+
+margin: 0;
+
+padding: 0;
+
+overflow: scroll;
+
+}
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: beige;
+        }
+        h2{
+            text-align: center;
+            color: maroon;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            margin-right: 450px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        select, input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        button {
+            background-color: maroon;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0a2c4e;
+        }
+        nav {
+            background-color: #666;
+            padding: 10px;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        header {
+            background-color: maroon;
+            padding:10px;
+            color: beige;;
+            text-align: center;
+ 
+        }
+        footer {
+            color: #393838;
+            text-align: center;
+            width:fit-content;
+        }
+    </style>
+</head>
+<body>
+
+<div ng-controller="LoginController as loginCtrl" class="login-container">
+    <header>
+        <h1>RapidRoute - Coastal Connections</h1>
+    </header>
+    <nav>
+
+        <ul>
+
+            <li><a href="rapidroutehome.html">Home</a></li>
+
+            <li><a href="rapidrouteabout.html">About Us</a></li>
+
+            <li><a href="rapidroutecontact.html">Contact</a></li>
+
+        </ul>
+
+    </nav>
+    <h2>Login</h2>
+    <!-- <form action="login">
+        <input type="text" ng-model="loginCtrl.username" placeholder="Username"><br>
+        <input type="password" ng-model="loginCtrl.password" placeholder="Password"><br>
+        <button ng-click="loginCtrl.loginAsUser()">Login as User</button>
+        <button ng-click="loginCtrl.loginAsAdmin()">Login as Admin</button>
+        <div ng-show="loginCtrl.error" style="color: red;">{{ loginCtrl.error }}</div>
+    </form> -->
+    <form class="signinForm">
+        <!-- <label for="signinName">Name: </label>
+        <input type="text" name="name" id="signinName"> -->
+        <!-- <label for="signinEmail">Email: </label> -->
+        <input type="email" name="email" id="signinEmail" placeholder="email">
+        <!-- <label for="signinPassword">Password: </label> -->
+        <input type="password" name="password" id="signinPassword" placeholder="Password">
+        <button type="submit">Signin</button><br>
+        <span><a href="/rapidroutesign.html">Create an account</a></span>
+    </form>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+<!-- Other Firebase SDKs -->
+
+<!-- Your Firebase configuration -->
+
+   <script type="module">
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js';
+import { getFirestore, collection, query, orderBy, onSnapshot, addDoc, serverTimestamp,
+deleteDoc,
+doc,
+where,
+getDoc,
+setDoc
+
+} from 'https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js';
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyD72zN2tftYjvridn8e89knLqZvAW3EhxQ",
+  authDomain: "rapidroute-4479e.firebaseapp.com",
+  projectId: "rapidroute-4479e",
+  storageBucket: "rapidroute-4479e.appspot.com",
+  messagingSenderId: "975125271392",
+  appId: "1:975125271392:web:b041526da6d4d59a674405"
+};
+
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth();
+const db = getFirestore();
+const colref = collection(db, 'users');
+const q = query(colref, orderBy("createdAt"));
+
+// onSnapshot(q, (snapshot) => {
+//     let users = [];
+//     snapshot.docs.forEach((doc) => {
+//         users.push({...doc.data(), id: doc.id});
+//     });
+//     console.log(users);
+// });
+
+document.addEventListener('DOMContentLoaded', () => {
+    // const signupForm = document.querySelector('.signupForm');
+    const signinForm = document.querySelector('.signinForm');
+//     auth.onAuthStateChanged((user) => {
+//     if (user) {
+//         // If user is signed in, redirect to stock.html
+//         window.location.href = 'stock.html';
+//     }
+// });
+    // Add signup form event listener
+    // signupForm.addEventListener('submit', (e) => {
+    //     e.preventDefault();
+    //     const email = signupForm.querySelector('#signupEmail').value;
+    //     const password = signupForm.querySelector('#signupPassword').value;
+        
+    //     createUserWithEmailAndPassword(auth, email, password)
+    //     .then((cred) => {
+    //         console.log('User Created ');
+
+    //         const docRef = doc(colref, cred.user.uid); 
+    //         setDoc(docRef, {
+    //             name: signupForm.name.value,
+    //             balance: 0,
+    //             A:0,
+    //             B:0,
+    //             C:0,
+    //             D:0,
+    //             E:0,
+    //             createdAt: serverTimestamp()
+    //         })
+    //         .then(()=>{
+    //             signupForm.reset()
+    //         })
+    //         .catch((error) => {
+    //             console.error("Error adding document: ", error);
+    //         });
+
+    //     })
+    //     .catch((err) => {
+    //         console.log(err.message);
+    //     });
+    // });
+
+    // Add signin form event listener
+    signinForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = signinForm.querySelector('#signinEmail').value;
+        const password = signinForm.querySelector('#signinPassword').value;
+
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                console.log('User Signed In:', user);
+                window.location.href = 'rapidroutehome 3.html';
+                docref = doc(db,'users', user.uid)
+                getDoc(docref)
+                    .then((doc)=>{
+                        console.log(doc.data(),doc.id)
+                    })
+                    .catch((error) => {
+                        console.error("Error getting document: ", error);
+                    });
+            })
+            .catch((error) => {
+                console.error('Signin Error:', error.message);
+            });
+    });
+
+    // Add logout button event listener
+});
+
+    </script>
+
+</div>
+
+
+<script>
+    // var app = angular.module('busTicketApp', []);
+
+    // app.controller('LoginController', function() {
+    //     var vm = this;
+
+    //     vm.loginAsUser = function() {
+    //         // Dummy user credentials check (Replace with actual logic)
+    //         if (vm.username === 'user' && vm.password === 'userpassword') {
+    //             // Redirect to user dashboard
+    //             alert('User logged in successfully!');
+    //         } else {
+    //             vm.error = 'Invalid username or password';
+    //         }
+    //     };
+
+    //     vm.loginAsAdmin = function() {
+    //         // Dummy admin credentials check (Replace with actual logic)
+    //         if (vm.username === 'admin' && vm.password === '123456789') {
+    //             // Redirect to admin dashboard
+    //             alert('Admin logged in successfully!');
+    //         } else {
+    //             vm.error = 'Invalid username or password';
+    //         }
+    //     };
+    // });
+</script>
+
+</body>
+</html>

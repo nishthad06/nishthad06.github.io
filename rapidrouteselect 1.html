@@ -1,0 +1,338 @@
+<html lang="en">
+<head>
+
+    <title>RapidRoute - Bus Selection</title>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style>
+        body {
+
+font-family: Arial, sans-serif;
+
+  background-color:beige;
+
+margin: 0;
+
+padding: 0;
+
+overflow: scroll;
+
+}
+
+header {
+
+background-color:maroon;
+
+color: beige;
+
+padding: 10px 0;
+
+text-align: center;
+
+}
+ 
+        .bus-selection-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+ 
+        .bus-option {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+ 
+        .bus-info h3 {
+            margin: 0;
+        }
+ 
+        .bus-info p {
+            margin: 5px 0;
+        }
+ 
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: maroon;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+ 
+        button:hover {
+            background-color: #555;
+        }
+ 
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <button class="logoutButton">Log Out</button>
+    <header>
+        <h1>RapidRoute - Bus Selection</h1>
+    </header>
+    <main class="bus-selection-container">
+       
+        <section class="bus-option">
+            <h2>SILVER</h2>
+            <div class="bus-info">
+                <h3>Bus Name: Rapid Travels</h3>
+                <p>Departure Time: 09:00 AM</p>
+                <p>Arrival Time: 12:00 PM</p>
+                <p>Fare: Rs. 350.00</p>
+            </div>
+            <button onclick="showSeatSelection(1)">Select This Bus</button>
+            <script>
+                function showSeatSelection(option) {
+                var seatSelection = document.getElementById("seatSelection" + option);
+                seatSelection.style.display = "block";
+            }
+            </script>
+            <div id="seatSelection1" style="display: none;">
+                <h3>Select Seats</h3>
+                <!-- <form id="passengerForm1" class="add1">
+                    <h3>Enter Number of Passengers:</h3>
+                    <input type="number" id="passengerCount1" name="passengerCount1" min="1" max="3">
+                    <button type="button" onclick="generatePassengerForms(1)">Proceed</button>
+                    <button type="submit">Proceed</button>
+                </form> -->
+                <form class="buyForm" id="buyForm" >
+                    <label for="amountBuy">Number of Passengers: </label>
+                    <input type="number" name="amountBuy" id="amountBuy" placeholder="Enter No. of Passengers">
+                    <button type="submit" >Proceed</button>
+                </form>
+                <script type="module">
+                    // Import the functions you need from the SDKs you need
+                   
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore,
+            collection,
+            onSnapshot,
+            addDoc,
+            deleteDoc,
+            doc,
+            query, 
+            where,
+            orderBy,
+            serverTimestamp,
+            getDoc,
+        updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getStorage } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js"; // Add this line for Firebase Storage
+
+
+                    // Your web app's Firebase configuration
+                    const firebaseConfig = {
+                    apiKey: "AIzaSyD72zN2tftYjvridn8e89knLqZvAW3EhxQ",
+                    authDomain: "rapidroute-4479e.firebaseapp.com",
+                    projectId: "rapidroute-4479e",
+                    storageBucket: "rapidroute-4479e.appspot.com",
+                    messagingSenderId: "975125271392",
+                    appId: "1:975125271392:web:b041526da6d4d59a674405"
+                    };
+
+                    // Initialize Firebase
+                    const app = initializeApp(firebaseConfig);
+                    const db = getFirestore()
+                    const auth = getAuth()
+
+                           // Check if user is signed in when the DOM content is loaded
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check if there is a signed-in user
+            auth.onAuthStateChanged(async (user) => {
+                if (user) {
+                    // User is signed in, retrieve user data
+                    const userDocRef = doc(db, 'users', user.uid);
+    
+                    try {
+                        // Get the user document from Firestore
+                        const userDocSnapshot = await getDoc(userDocRef);
+    
+                        if (userDocSnapshot.exists()) {
+                            const userData = userDocSnapshot.data();
+                            console.log('User Data:', userData);
+                            // const userDataParagraph = document.getElementById('userData'); // Corrected typo: getElementById instead of getElementByid
+                            // Update the content of the <p> tag with user data
+                                // document.getElementById('userName').textContent = `Name: ${userData.name}`;
+                               var user_id = user.uid;                              
+                              
+                            //    var user_name = userData.name;
+                            //    console.log(uid);
+
+                                                            // Function to generate a random question
+                                
+
+                                
+
+
+                                    
+                                // adding documents
+                                const buyForm = document.getElementById('buyForm')
+                                const colref_transactions = collection(db,'users_transactions')
+                                buyForm.addEventListener('submit', (e) => {
+                                    e.preventDefault()
+                                    addDoc(colref_transactions, {
+                                        bus_name: "Rapid Travels",
+                                        paid: 350,
+                                        no_of_passengers: parseInt(document.getElementById("amountBuy").value),
+                                        uid: user.uid,
+                                        createdAt: serverTimestamp()
+                                    })
+                                    console.log(document.getElementById("amountBuy").value);
+                                    var amountBuy_var = document.getElementById("amountBuy").value; 
+                                    console.log("here00");
+                                        //set seats_available as low
+                                        const docRefRapidTravels = doc(db, "buses", "rapid_travels");
+
+                                        getDoc(docRefRapidTravels)
+                                        .then((rapidTravelsDatasnapshot) => {
+                                            if (rapidTravelsDatasnapshot.exists()) {  // Check for document existence here
+                                            // Access document data using rapidTravelsDatasnapshot.data()
+                                            const busData = rapidTravelsDatasnapshot.data();
+
+                                            const seats_available_in_rapid_travels = busData.seats_available;
+                                            console.log(seats_available_in_rapid_travels);
+                                            console.log(seats_available_in_rapid_travels-parseInt(amountBuy_var));
+                                            if(seats_available_in_rapid_travels-parseInt(amountBuy_var)>=0){
+                                                console.log(parseInt(amountBuy_var));
+                                                updateDoc(docRefRapidTravels,{
+                                                    seats_available: seats_available_in_rapid_travels-parseInt(amountBuy_var),
+                                                })
+                                                .then(() => {
+                                                    console.log("Seats Updated!!")
+
+                                                })
+                                            }
+                                            } else {
+                                            console.log("Rapid Travels bus document does not exist");
+                                            }
+                                        })
+                                        .catch((error) => {
+                                            console.error("Error getting Rapid Travels bus document:", error);
+                                        });
+
+
+                                        buyForm.reset();
+
+                                        // console.log("Seats Updated");
+                                                                        })
+
+
+                               
+
+
+
+                        } else {
+                            console.log('User document does not exist.');
+                        }
+                    } catch (error) {
+                        console.error('Error getting user document:', error);
+                    }
+                } else {
+                    console.log('No user signed in.');
+                    window.location.href="index.html";
+                }
+            });
+    
+            // Add logout button event listener
+            const logoutButton = document.querySelector('.logoutButton');
+            logoutButton.addEventListener('click', () => {
+                auth.signOut().then(() => {
+                    // Sign-out successful.
+                    console.log('User signed out successfully.');
+                    window.location.href = 'rapidroutelogin.html'; // Redirect to sign-in page after logout
+                }).catch((error) => {
+                    // An error happened.
+                    console.error('Error signing out:', error);
+                });
+            });
+
+
+
+
+
+        });
+                </script>
+            </div>
+            <div id="passengerDetails1"></div>
+        </section>
+        <section class="bus-option">
+            <h2>GOLD</h2>
+            <div class="bus-info">
+                <h3>Bus Name: Rapid Express</h3>
+                <p>Departure Time: 10:00 AM</p>
+                <p>Arrival Time: 12:30 PM</p>
+                <p>Fare: Rs. 555.00</p>
+            </div>
+            <button onclick="showSeatSelection(2)">Select This Bus</button>
+            <div id="seatSelection2" style="display: none;">
+                <h3>Select Seats</h3>
+                <form id="passengerForm2">
+                    <h3>Enter Number of Passengers:</h3>
+                    <input type="number" id="passengerCount2" min="1" max="3">
+                    <button type="button" onclick="generatePassengerForms(2)">Proceed</button>
+                </form>
+            </div>
+            <div id="passengerDetails2"></div>
+        </section>
+       
+        <section class="bus-option">
+            <h2>PLATINUM</h2>
+            <div class="bus-info">
+                <h3>Bus Name: RapidRide Express</h3>
+                <p>Departure Time: 11:00 AM</p>
+                <p>Arrival Time: 12:30 PM</p>
+                <p>Fare: Rs. 645.00</p>
+            </div>
+            <button onclick="showSeatSelection(3)">Select This Bus</button>
+            <div id="seatSelection3" style="display: none;">
+                <h3>Select Seats</h3>
+                <form id="passengerForm3">
+                    <h3>Enter Number of Passengers:</h3>
+                    <input type="number" id="passengerCount3" min="1" max="3">
+                    <button type="button" onclick="generatePassengerForms(3)">Proceed</button>
+                </form>
+            </div>
+            <div id="passengerDetails3"></div>
+        </section>
+        <section class="bus-option">
+            <h2>PRO</h2>
+            <div class="bus-info">
+                <h3>Bus Name: Rapid Travel Co.</h3>
+                <p>Departure Time: 3:00 PM</p>
+                <p>Arrival Time: 4:00 PM</p>
+                <p>Fare: Rs. 860.00</p>
+            </div>
+            </div>
+            <button onclick="showSeatSelection(3)">Select This Bus</button>
+            <div id="seatSelection3" style="display: none;">
+                <h3>Select Seats</h3>
+                <form id="passengerForm3">
+                    <h3>Enter Number of Passengers:</h3>
+                    <input type="number" id="passengerCount3" min="1" max="3">
+                    <button type="button" onclick="generatePassengerForms(3)">Proceed</button>
+                </form>
+            </div>
+            <div id="passengerDetails3"></div>
+        </section>
+        <p>*
+            You are requested to wait at the stop 15 minutes prior to the bus time.
+            Bus timings may vary due to traffic and technical issues.
+        </p>
+    </main>
+    <footer>
+        <p>&copy; 2024 RapidRoute - Bus Selection. All rights reserved.</p>
+    </footer>
+ 
+    <!-- <script src="rapidrouteselect.js"></script> -->
+</body>
+</html>
